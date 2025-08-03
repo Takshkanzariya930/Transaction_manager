@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}
+
+    <h1>Recent Transaction</h1>
+
+    {% if transactions %}
+
+        {% for transaction in transactions %}
+        
+            <li>{{transaction}}</li>
+        
+        {% endfor %}
+    
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Add Transaction | TS Manager {% endblock %}
+
+{% block content %}
+    <h2>Transaction Form</h2>
+
+    {% with messages=get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            
+                <li>{{message}}</li>
+            
+            {% endfor %}
+
+            {% else %}
+            
+                <li> No message found <li>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.member.label }}<br>
+            {{ form.member() }}<br>
+            {% for error in form.member.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.amount.label }}<br>
+            {{ form.amount() }}<br>
+            {% for error in form.amount.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.ttype.label }}<br>
+            {{ form.ttype() }}<br>
+            {% for error in form.ttype.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.note.label }}<br>
+            {{ form.note() }}<br>
+            {% for error in form.note.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.date.label }}<br>
+            {{ form.date() }}<br>
+            {% for error in form.date.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </p>
+
+        <p>{{ form.submit() }}</p>
+    </form>
+
+    <h1>Recent Transaction</h1>
+
+    {% if transactions %}
+
+        {% for transaction in transactions %}
+        
+            <li>{{transaction}}</li>
+        
+        {% endfor %}
+    
+    {% endif %}
+{% endblock %}

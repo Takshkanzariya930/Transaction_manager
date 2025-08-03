@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Login | TS Manager {% endblock %}
+
+{% block content %}
+    <h2>Login Form</h2>
+
+    {% with messages=get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            
+                <li>{{message}}</li>
+            
+            {% endfor %}
+
+            {% else %}
+            
+                <li> No message found <li>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username() }}<br>
+            {% for error in form.username.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </p>
+
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password() }}<br>
+            {% for error in form.password.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </p>
+        
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

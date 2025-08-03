@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}View Transaction | TS Manager {% endblock %}
+
+{% block content %}
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.member.label }}<br>
+            {{ form.member() }}<br>
+            {% for error in form.member.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+
+    <h1>Recent Transaction</h1>
+
+    {% if transactions %}
+
+        {% for transaction in transactions %}
+        
+            <li>{{transaction}}</li>
+        
+        {% endfor %}
+    
+    {% endif %}
+
+{% endblock %}

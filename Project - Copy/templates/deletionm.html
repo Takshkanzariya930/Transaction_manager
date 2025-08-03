@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Delete Member | TS Manager {% endblock %}
+
+{% block content %}
+    <h2>Member Form</h2>
+
+    {% with messages=get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            
+                <li>{{message}}</li>
+            
+            {% endfor %}
+
+            {% else %}
+            
+                <li> No message found <li>
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.member.label }}<br>
+            {{ form.member() }}<br>
+            {% for error in form.member.errors %}
+                <span style="color: red;">{{ error }}</span><br>
+            {% endfor %}
+        </p>
+
+        <p>{{ form.submit() }}</p>
+    </form>
+
+        <h1>List of Members</h1>
+
+    {% if members %}
+
+        {% for member in members %}
+        
+            <li>{{member}}</li>
+        
+        {% endfor %}
+    
+    {% endif %}
+
+{% endblock %}
