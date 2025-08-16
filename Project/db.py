@@ -89,7 +89,7 @@ def show_all_transaction_member(uid,mid):
         cursor.execute(f"SELECT * FROM trans WHERE uid={uid} AND mid={mid}")
         result = cursor.fetchall()
         
-        return [i[3:] for i in result]
+        return [i for i in result]
             
     except Exception as e:
         return e
@@ -99,7 +99,7 @@ def show_all_transaction(uid):
         cursor.execute(f"SELECT * FROM trans WHERE uid={uid}")
         result = cursor.fetchall()
         
-        return [i[3:] for i in result ]
+        return [i for i in result ]
     
     except Exception as e:
         return e
@@ -134,9 +134,9 @@ def show_email(email):
     except Exception as e:
         return e
 
-def show_member_id(membername):
+def show_member_id(membername, uid):
     try:        
-        cursor.execute(f"SELECT mid FROM members WHERE name='{membername}'")
+        cursor.execute(f"SELECT mid FROM members WHERE name='{membername}' AND uid={uid}")
         result = cursor.fetchall()
         
         return [i[0] for i in result]
@@ -177,12 +177,12 @@ def check_password(username,password):
 # print(create_user(username="4rand",email="124rand@gmail.com",password="password12"))
 # print(add_member(membername="rand mem",uid=23))
 # print(add_transaction(1,23,500,"lend","wafer 23","2024-07-27 14:42:43"))
-# print(delete_transaction(3,23))
+# print(delete_transaction(2,1))
 # print(total_amount_member(31,23))
 # print(show_all_transaction_member(31,23))
 # print(show_all_transaction(32))
-# print(show_all_members(31))
-# print(show_user_id('Bob'))
+# print(show_all_members(1))
+print(show_user_id('Bob'))
 # print(show_member_id('Member1'))
 # print(recent_transaction('Bob'))
 # print(check_password('Bob','password31'))

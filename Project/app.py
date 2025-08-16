@@ -14,7 +14,6 @@ def login():
         
         session['username'] = form.username.data
         session['password'] = form.password.data
-        
         if not db.show_user_id(session["username"]):
             flash("Username Not Found")
             
@@ -134,17 +133,17 @@ def deletem():
         flash("You must log in first.", "warning")
         return redirect(url_for('login'))
     
-    form = forms.DeleteTransaction()
-    form.member.choices = [(x,x) for x in db.show_all_members(db.show_user_id(session['username'])[0])]
+    form = forms.DeleteMember()
     members = db.show_all_members(db.show_user_id(session['username'])[0])
+    form.member.choices = [(x,x) for x in db.show_all_members(db.show_user_id(session['username'])[0])]   
     
     if request.method == 'POST' and form.validate_on_submit():
-        session['membername'] = form.member.data
+        session['memberid'] = db.show_user_id(form.member.data)[0]
         
-        if db.delete_member(db.show_member_id(session['memername']),db.show_user_id(session['username'])) == True :
-            flash("Member Deleted Successfully")
+        if db.delete_member(session['memberid'], db.show_user_id(session['username'])[0]) == True :
+            flash("Member Deleted")
         else:
-            flash("Member is not deleted")
+            flash("Member was NOT deleted")
         
     return render_template("deletionm.html", form=form, members=members)
 
@@ -160,12 +159,16 @@ def deletet():
     transactions = db.recent_transaction(session["username"])
     
     if request.method == 'POST' and form.validate_on_submit():
-        session['transaction'] = form.tid.data
-        
-        if db.delete_transaction(session['transaction'], db.show_user_id(session['username'])[0]) == True:
-            flash("Transaction Deleted Successfully")
+        session['transactionid'] = form.tid.data
+        # Ensure correct index for user id
+        user_id_list = db.show_user_id(session['username'])
+        if user_id_list:
+            if db.delete_transaction(session['transactionid'], user_id_list[0]) == True:
+                flash("Transaction Deleted Successfully")
+            else:
+                flash("Transaction is not deleted")
         else:
-            flash("Transaction is not deleted")
+            flash("User not found.")
 
     return render_template("deletiont.html", form=form, transactions=transactions)
 

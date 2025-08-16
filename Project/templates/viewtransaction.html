@@ -35,7 +35,18 @@ endblock %} {% block content %}
 			<div class="card text-bg-primary mb-3">
 				<div class="card-body">
 					<h5 class="card-title">Total (Lend + Borrowed)</h5>
-					<p class="card-text fs-4">{{ lend + borrowed }}</p>
+					<p class="card-text fs-4">
+							
+						{% if not lend%}
+							{%set lend = 0%}
+						{% endif %}
+
+						{% if not borrowed%}
+							{%set borrowed = 0%}
+						{% endif %}
+						
+						{{ lend + borrowed }}
+					</p>
 				</div>
 			</div>
 		</div>

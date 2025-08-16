@@ -32,7 +32,10 @@ class Selectmember(FlaskForm):
     member = SelectField('Select Member',choices=[])
     submit = SubmitField('Show')
 
-class DeleteTransaction(FlaskForm):
+class DeleteMember(FlaskForm):
     member = SelectField('Select Member',choices=[])
-    tid = SelectField('Select Member',choices=[])
+    submit = SubmitField('Delete')
+    
+class DeleteTransaction(FlaskForm):
+    tid = SelectField('Select Transaction ID',choices=[])
     submit = SubmitField('Delete')
